@@ -14,6 +14,7 @@ import org.junit.runner.RunWith
 import org.koin.core.context.loadKoinModules
 import org.koin.test.KoinTest
 import pl.lgawin.demo.spacex.api.apiModule
+import pl.lgawin.demo.spacex.ui.MainActivity
 import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)

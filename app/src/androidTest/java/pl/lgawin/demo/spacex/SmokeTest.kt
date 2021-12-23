@@ -16,6 +16,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
 import org.koin.test.KoinTest
 import pl.lgawin.demo.spacex.mock.getAllLaunchpadsMock
+import pl.lgawin.demo.spacex.ui.MainActivity
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest

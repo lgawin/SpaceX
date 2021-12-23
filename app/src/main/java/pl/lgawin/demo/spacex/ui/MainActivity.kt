@@ -1,9 +1,8 @@
-package pl.lgawin.demo.spacex
+package pl.lgawin.demo.spacex.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.commit
-import pl.lgawin.demo.spacex.databinding.ActivityMainBinding
+import pl.lgawin.demo.spacex.R
 
 class MainActivity : AppCompatActivity() {
 

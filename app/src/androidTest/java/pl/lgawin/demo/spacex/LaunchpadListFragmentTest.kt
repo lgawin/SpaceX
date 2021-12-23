@@ -14,7 +14,9 @@ import org.koin.core.context.unloadKoinModules
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.koin.test.KoinTest
+import pl.lgawin.demo.spacex.domain.GetAllLaunchpadsUseCase
 import pl.lgawin.demo.spacex.domain.LaunchpadModel
+import pl.lgawin.demo.spacex.ui.list.LaunchpadListFragment
 
 @RunWith(AndroidJUnit4::class)
 class LaunchpadListFragmentTest : ScreenshotTest, KoinTest {

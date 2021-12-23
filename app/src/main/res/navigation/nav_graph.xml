@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/launchpadListFragment"
-        android:name="pl.lgawin.demo.spacex.LaunchpadListFragment"
+        android:name="pl.lgawin.demo.spacex.ui.list.LaunchpadListFragment"
         android:label="SpaceX Launchpads"
         tools:layout="@layout/fragment_launchpad_list" />
 

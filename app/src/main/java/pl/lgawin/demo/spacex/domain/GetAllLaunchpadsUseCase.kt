@@ -1,6 +1,4 @@
-package pl.lgawin.demo.spacex
-
-import pl.lgawin.demo.spacex.domain.LaunchpadModel
+package pl.lgawin.demo.spacex.domain
 
 interface GetAllLaunchpadsUseCase {
     suspend operator fun invoke(): List<LaunchpadModel>

@@ -2,7 +2,7 @@ package pl.lgawin.demo.spacex.mock
 
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import pl.lgawin.demo.spacex.GetAllLaunchpadsUseCase
+import pl.lgawin.demo.spacex.domain.GetAllLaunchpadsUseCase
 import pl.lgawin.demo.spacex.domain.LaunchpadModel
 
 val getAllLaunchpadsMock = module {

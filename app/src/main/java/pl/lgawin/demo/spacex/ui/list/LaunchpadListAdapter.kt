@@ -1,4 +1,4 @@
-package pl.lgawin.demo.spacex
+package pl.lgawin.demo.spacex.ui.list
 
 import android.view.LayoutInflater
 import android.view.View
