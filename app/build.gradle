@@ -56,6 +56,9 @@ dependencies {
     def lifecycle_version = "2.4.0"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    def nav_version = "2.3.5"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     def koin_version = "3.1.4"
     implementation("io.insert-koin:koin-android:$koin_version")
 
@@ -73,4 +76,5 @@ dependencies {
         exclude group: "org.jetbrains.kotlin" // Only if you already use Kotlin in your project
     }
     androidTestImplementation("io.insert-koin:koin-test:$koin_version")
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 }

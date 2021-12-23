@@ -11,8 +11,5 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_SpaceX)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.commit {
-            replace(R.id.fragment_container_view, LaunchpadListFragment::class.java, null)
-        }
     }
 }
