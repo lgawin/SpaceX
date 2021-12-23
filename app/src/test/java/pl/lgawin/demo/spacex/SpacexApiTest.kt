@@ -1,39 +1,71 @@
 package pl.lgawin.demo.spacex
 
 import com.google.common.truth.Truth.assertThat
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Test
+import pl.lgawin.demo.spacex.integration.retrofitBuilder
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class SpacexApiTest {
 
     val server = MockWebServer()
-
-    val moshi: Moshi = Moshi.Builder()
-        .addLast(KotlinJsonAdapterFactory())
-        .build()
-
-    val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(server.url("/"))
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .build()
+    val retrofit: Retrofit = retrofitBuilder(server.url("/").toString()).build()
+    val service: SpacexApi = retrofit.create(SpacexApi::class.java)
 
     @Test
-    fun `gets all launchpads`() {
+    fun `asks for all launchpads`() {
+        server.enqueue(MockResponse().apply {
+            setResponseCode(200)
+            setBody("[]")
+        })
+
+        runBlocking { service.getAllLaunchPads() }
+
+        with(server.takeRequest()) {
+            assertThat(method).isEqualTo("GET")
+            assertThat(path).isEqualTo("/v3/launchpads")
+        }
+    }
+
+    @Test
+    fun `retrieves all launchpads`() {
         server.enqueue(MockResponse().apply {
             setResponseCode(200)
             setBody(launchpadsResponse)
         })
 
-        val service = retrofit.create(SpacexApi::class.java)
-
         val launchPads = runBlocking { service.getAllLaunchPads() }
+
         assertThat(launchPads).hasSize(6)
+    }
+
+    @Test
+    fun `asks for specific launchpad details`() {
+        server.enqueue(MockResponse().apply {
+            setResponseCode(200)
+            setBody("""{"id": 1, "site_id": "some-site-id"}""")
+        })
+
+        runBlocking { service.getLaunchpad("some-site-id") }
+
+        with(server.takeRequest()) {
+            assertThat(method).isEqualTo("GET")
+            assertThat(path).isEqualTo("/v3/launchpads/some-site-id")
+        }
+    }
+
+    @Test
+    fun `retrieves launchpad details`() {
+        server.enqueue(MockResponse().apply {
+            setResponseCode(200)
+            setBody("""{"id": 1, "site_id": "some-site-id"}""")
+        })
+
+        val launchpad = runBlocking { service.getLaunchpad("some-site-id") }
+
+        assertThat(launchpad).isEqualTo(Launchpad(1, "some-site-id"))
     }
 }
 
