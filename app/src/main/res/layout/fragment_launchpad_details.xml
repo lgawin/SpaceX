@@ -12,9 +12,21 @@
         tools:text="name: Launchpad name" />
 
     <TextView
-        android:id="@+id/details"
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="details: Launchpad details" />
+        tools:text="description: Launchpad description" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="status: active" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="location: 28°33'42.7&amp;N 80°34'38.5&amp;W - Cape Canaveral/Florida" />
 
 </LinearLayout>

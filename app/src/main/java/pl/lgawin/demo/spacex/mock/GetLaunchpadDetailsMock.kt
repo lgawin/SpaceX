@@ -14,7 +14,7 @@ private class GetLaunchpadDetails : GetLaunchpadDetailsUseCase {
 
     override suspend fun invoke(id: String) = LaunchpadDetailsModel(
         id,
-        "name",
+        "Launchpad $id",
         "Launchpad $id description",
         "status",
         LaunchpadLocationModel(0.0, 0.0, "some location")

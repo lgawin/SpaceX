@@ -49,10 +49,10 @@ class LaunchpadDetailsFragmentTest : ScreenshotTest, KoinTest {
     fun launch() {
         val launchpadDetails = LaunchpadDetailsModel(
             "some-id",
-            "name",
+            "Launchpad name",
             "Launchpad description",
-            "",
-            LaunchpadLocationModel(0.0, 0.0, "")
+            "under construction",
+            LaunchpadLocationModel(28.5618571, -80.577366, "Cape Canaveral/Florida")
         )
         val fragment = launchFragmentInContainer<LaunchpadDetailsFragment>(
             themeResId = R.style.Theme_SpaceX,
@@ -62,7 +62,10 @@ class LaunchpadDetailsFragmentTest : ScreenshotTest, KoinTest {
         compareScreenshot(fragment)
         // TODO check that view is loading data
         detailsFlow.tryEmit(launchpadDetails)
-        assertDisplayed("description: Launchpad description")
+        assertDisplayed("Launchpad name")
+        assertDisplayed("Launchpad description")
+        assertDisplayed("under construction")
+//        assertDisplayed("""28°33'42.7"N 80°34'38.5"W - Cape Canaveral/Florida""")
         compareScreenshot(fragment, name = "data_loaded")
     }
 }

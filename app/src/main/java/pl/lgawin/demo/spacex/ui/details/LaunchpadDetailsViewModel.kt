@@ -3,18 +3,30 @@ package pl.lgawin.demo.spacex.ui.details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import pl.lgawin.demo.spacex.domain.GetLaunchpadDetailsUseCase
+import pl.lgawin.demo.spacex.domain.LaunchpadDetailsModel
+import pl.lgawin.demo.spacex.domain.LaunchpadLocationModel
 
 class LaunchpadDetailsViewModel(
     private val launchpadId: String,
     private val getLaunchpadDetailsUseCase: GetLaunchpadDetailsUseCase,
 ) : ViewModel() {
 
-    val name = liveData {
-        emit("name: $launchpadId")
+    val details = liveData {
+        emit(LaunchpadDetailsUiModel("name: $launchpadId"))
+        val details = getLaunchpadDetailsUseCase(launchpadId)
+        emit(details.mapToUiModel())
     }
 
-    val description = liveData {
-        val details = getLaunchpadDetailsUseCase(launchpadId)
-        emit("description: ${details.description}")
-    }
+    private fun formatLocation(location: LaunchpadLocationModel) =
+        """0°N 0°E - ${location.description}"""
+
+    private fun LaunchpadDetailsModel.mapToUiModel() =
+        LaunchpadDetailsUiModel(name, description, status, formatLocation(location))
+
+    data class LaunchpadDetailsUiModel(
+        val name: String,
+        val description: String? = null,
+        val status: String? = null,
+        val location: String? = null,
+    )
 }

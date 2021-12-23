@@ -30,11 +30,11 @@ class LaunchpadDetailsFragment : Fragment(R.layout.fragment_launchpad_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.name.observe(viewLifecycleOwner) {
-            binding.name.text = it
-        }
-        viewModel.description.observe(viewLifecycleOwner) {
-            binding.details.text = it
+        viewModel.details.observe(viewLifecycleOwner) {
+            binding.name.text = it.name
+            binding.description.text = it.description
+            binding.status.text = it.status
+            binding.location.text = it.location
         }
     }
 
@@ -42,5 +42,4 @@ class LaunchpadDetailsFragment : Fragment(R.layout.fragment_launchpad_details) {
         super.onDestroyView()
         _binding = null
     }
-
 }
