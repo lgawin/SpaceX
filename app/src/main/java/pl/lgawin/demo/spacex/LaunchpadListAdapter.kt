@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import pl.lgawin.demo.spacex.domain.LaunchpadModel
 
-class LaunchpadListAdapter :
+class LaunchpadListAdapter(private val onClick: (LaunchpadModel) -> Unit) :
     ListAdapter<LaunchpadModel, SimpleLaunchpadViewHolder>(LaunchpadDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleLaunchpadViewHolder =
-        SimpleLaunchpadViewHolder.inflateIn(parent)
+        SimpleLaunchpadViewHolder.inflateIn(parent).apply {
+            clickListener = onClick
+        }
 
     override fun onBindViewHolder(holder: SimpleLaunchpadViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -30,10 +32,13 @@ class LaunchpadDiffCallback : DiffUtil.ItemCallback<LaunchpadModel>() {
 
 class SimpleLaunchpadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    var clickListener: (LaunchpadModel) -> Unit = {}
+
     private val name = itemView.findViewById<TextView>(android.R.id.text1)
 
     fun bind(item: LaunchpadModel) {
         name.text = item.name
+        itemView.setOnClickListener { clickListener(item) }
     }
 
     companion object {

@@ -24,5 +24,4 @@ class Application : Application() {
 
 val appModule = module {
     viewModel { LaunchpadListViewModel(get()) }
-    factory { LaunchpadListAdapter() }
 }
