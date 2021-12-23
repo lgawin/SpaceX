@@ -59,7 +59,7 @@ class LaunchpadListFragmentTest : ScreenshotTest, KoinTest {
             Navigation.setViewNavController(it.requireView(), navController)
         }
         clickListItem(R.id.launchpad_list, 0)
-        assertThat(navController.currentDestination?.id).isEqualTo(R.id.launchpadDetailsFragment)
+        assertThat(navController.currentDestination?.id).isEqualTo(R.id.launchpad_details)
     }
 }
 

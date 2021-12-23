@@ -2,6 +2,7 @@ package pl.lgawin.demo.spacex.ui.details
 
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.karumi.shot.FragmentScenarioUtils.waitForFragment
 import com.karumi.shot.ScreenshotTest
 import org.junit.After
@@ -13,6 +14,7 @@ import org.koin.core.context.unloadKoinModules
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import pl.lgawin.demo.spacex.R
+import pl.lgawin.demo.spacex.ui.list.LaunchpadListFragmentDirections
 
 @RunWith(AndroidJUnit4::class)
 class LaunchpadDetailsFragmentTest : ScreenshotTest, KoinTest {
@@ -34,9 +36,12 @@ class LaunchpadDetailsFragmentTest : ScreenshotTest, KoinTest {
     @Test
     fun launch() {
         val fragment =
-            launchFragmentInContainer<LaunchpadDetailsFragment>(themeResId = R.style.Theme_SpaceX)
+            launchFragmentInContainer<LaunchpadDetailsFragment>(
+                themeResId = R.style.Theme_SpaceX,
+                fragmentArgs = LaunchpadListFragmentDirections.actionLaunchpadListToLaunchpadDetails("some-id").arguments
+            )
                 .waitForFragment()
-//        assertDisplayed("Launchpad details")
+        assertDisplayed("launchpad some-id details")
         compareScreenshot(fragment)
     }
 }

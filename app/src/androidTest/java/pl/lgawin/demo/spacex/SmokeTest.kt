@@ -6,6 +6,7 @@ import androidx.test.filters.LargeTest
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickBack
 import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickOn
+import com.adevinta.android.barista.interaction.BaristaListInteractions.clickListItem
 import com.adevinta.android.barista.interaction.BaristaListInteractions.scrollListToPosition
 import com.adevinta.android.barista.interaction.BaristaSleepInteractions.sleep
 import com.karumi.shot.ActivityScenarioUtils.waitForActivity
@@ -44,9 +45,13 @@ class SmokeTest : ScreenshotTest, KoinTest {
         scrollListToPosition(R.id.launchpad_list, 40)
         assertDisplayed("Launchpad 40")
         compareScreenshot(activity, name = "launchpad_list_scrolled")
-        clickOn("Launchpad 39")
-        sleep(2, TimeUnit.SECONDS) // TODO check details fragment
+        clickListItem(R.id.launchpad_list, 35)
+        assertDisplayed("launchpad 36 details")
+        compareScreenshot(activity, name = "launchpad_details")
         clickBack()
-        sleep(2, TimeUnit.SECONDS ) // TODO check if back on the list
+        clickOn("Launchpad 39")
+        assertDisplayed("launchpad 39 details")
+        clickBack()
+        sleep(2, TimeUnit.SECONDS) // TODO check if back on the list
     }
 }

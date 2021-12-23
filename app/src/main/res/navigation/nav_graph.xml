@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/launchpadListFragment">
+    app:startDestination="@id/launchpad_list">
 
     <fragment
-        android:id="@+id/launchpadListFragment"
+        android:id="@+id/launchpad_list"
         android:name="pl.lgawin.demo.spacex.ui.list.LaunchpadListFragment"
         android:label="SpaceX Launchpads"
         tools:layout="@layout/fragment_launchpad_list" >
         <action
-            android:id="@+id/action_launchpadListFragment_to_launchpadDetailsFragment"
-            app:destination="@id/launchpadDetailsFragment" />
+            android:id="@+id/action_launchpad_list_to_launchpad_details"
+            app:destination="@id/launchpad_details" />
     </fragment>
 
     <fragment
-        android:id="@+id/launchpadDetailsFragment"
+        android:id="@+id/launchpad_details"
         android:name="pl.lgawin.demo.spacex.ui.details.LaunchpadDetailsFragment"
         android:label="LaunchpadDetailsFragment"
         tools:layout="@layout/fragment_launchpad_details" >
