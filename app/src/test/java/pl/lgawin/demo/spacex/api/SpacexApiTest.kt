@@ -4,15 +4,26 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import org.junit.Rule
 import org.junit.Test
-import pl.lgawin.demo.spacex.integration.retrofitBuilder
+import org.koin.core.logger.Level
+import org.koin.test.KoinTest
+import org.koin.test.KoinTestRule
+import org.koin.test.inject
 import retrofit2.Retrofit
 
-class SpacexApiTest {
+class SpacexApiTest : KoinTest {
+
+    @get:Rule
+    val koinTestRule = KoinTestRule.create {
+        printLogger(Level.NONE)
+        modules(retrofitModule)
+    }
 
     val server = MockWebServer()
-    val retrofit: Retrofit = retrofitBuilder(server.url("/").toString()).build()
-    val service: SpacexApi = retrofit.create(SpacexApi::class.java)
+    val retrofitBuilder by inject<Retrofit.Builder>()
+    val retrofit: Retrofit by lazy { retrofitBuilder.baseUrl(server.url("/")).build() }
+    val service: SpacexApi by lazy { retrofit.create(SpacexApi::class.java) }
 
     @Test
     fun `asks for all launchpads`() {
@@ -45,7 +56,11 @@ class SpacexApiTest {
     fun `asks for specific launchpad details`() {
         server.enqueue(MockResponse().apply {
             setResponseCode(200)
-            setBody("""{"id": 1, "site_id": "some-site-id"}""")
+            setBody("""{
+                "id": 1, 
+                "site_id": "some-site-id", 
+                "site_name_long": "Launchpad name"
+            }""".trimIndent())
         })
 
         runBlocking { service.getLaunchpad("some-site-id") }
@@ -60,12 +75,20 @@ class SpacexApiTest {
     fun `retrieves launchpad details`() {
         server.enqueue(MockResponse().apply {
             setResponseCode(200)
-            setBody("""{"id": 1, "site_id": "some-site-id"}""")
+            setBody("""{
+                "id": 1, 
+                "site_id": "some-site-id", 
+                "site_name_long": "Launchpad name"
+            }""".trimIndent())
         })
 
         val launchpad = runBlocking { service.getLaunchpad("some-site-id") }
 
-        assertThat(launchpad).isEqualTo(Launchpad(1, "some-site-id"))
+        assertThat(launchpad).isEqualTo(Launchpad(
+            1,
+            "some-site-id",
+            "Launchpad name"
+        ))
     }
 }
 

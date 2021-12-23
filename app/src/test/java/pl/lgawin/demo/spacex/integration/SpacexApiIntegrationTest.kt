@@ -4,21 +4,38 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.junit.Rule
 import org.junit.Test
+import org.koin.core.logger.Level
+import org.koin.test.KoinTest
+import org.koin.test.KoinTestRule
+import org.koin.test.inject
 import pl.lgawin.demo.spacex.api.SpacexApi
+import pl.lgawin.demo.spacex.api.retrofitModule
 import retrofit2.Retrofit
 
-internal class SpacexApiIntegrationTest {
+internal class SpacexApiIntegrationTest : KoinTest {
 
-    val retrofit: Retrofit = retrofitBuilder("https://api.spacexdata.com/")
-        .client(
-            OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
-                })
-                .build()
-        )
-        .build()
+    @get:Rule
+    val koinTestRule = KoinTestRule.create {
+        printLogger(Level.NONE)
+        modules(retrofitModule)
+    }
+
+    val retrofitBuilder by inject<Retrofit.Builder>()
+
+    val retrofit: Retrofit by lazy {
+        retrofitBuilder
+            .baseUrl("https://api.spacexdata.com/")
+            .client(
+                OkHttpClient.Builder()
+                    .addInterceptor(HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BODY
+                    })
+                    .build()
+            )
+            .build()
+    }
 
     @Test
     fun `gets all launchpads`() {

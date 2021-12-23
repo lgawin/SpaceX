@@ -7,7 +7,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.logger.Level
 import org.koin.dsl.module
-import pl.lgawin.demo.spacex.mock.getAllLaunchpadsMock
+import pl.lgawin.demo.spacex.api.apiModule
 
 class Application : Application() {
 
@@ -17,7 +17,7 @@ class Application : Application() {
             // https://github.com/InsertKoinIO/koin/issues/1188#issuecomment-970240532 issue workaround
             androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
             androidContext(this@Application)
-            modules(appModule + getAllLaunchpadsMock)
+            modules(appModule + apiModule)
         }
     }
 }
