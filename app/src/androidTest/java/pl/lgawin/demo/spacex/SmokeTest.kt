@@ -8,13 +8,29 @@ import com.adevinta.android.barista.interaction.BaristaListInteractions.scrollLi
 import com.adevinta.android.barista.interaction.BaristaSleepInteractions.sleep
 import com.karumi.shot.ActivityScenarioUtils.waitForActivity
 import com.karumi.shot.ScreenshotTest
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
+import org.koin.test.KoinTest
+import pl.lgawin.demo.spacex.mock.getAllLaunchpadsMock
 import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class SmokeTest : ScreenshotTest {
+class SmokeTest : ScreenshotTest, KoinTest {
+
+    @Before
+    fun before() {
+        loadKoinModules(getAllLaunchpadsMock)
+    }
+
+    @After
+    fun after() {
+        unloadKoinModules(getAllLaunchpadsMock)
+    }
 
     @Test
     fun launchAndShowListOfLaunchpads() {
