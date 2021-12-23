@@ -9,6 +9,20 @@
         android:id="@+id/launchpadListFragment"
         android:name="pl.lgawin.demo.spacex.ui.list.LaunchpadListFragment"
         android:label="SpaceX Launchpads"
-        tools:layout="@layout/fragment_launchpad_list" />
+        tools:layout="@layout/fragment_launchpad_list" >
+        <action
+            android:id="@+id/action_launchpadListFragment_to_launchpadDetailsFragment"
+            app:destination="@id/launchpadDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/launchpadDetailsFragment"
+        android:name="pl.lgawin.demo.spacex.ui.details.LaunchpadDetailsFragment"
+        android:label="LaunchpadDetailsFragment"
+        tools:layout="@layout/fragment_launchpad_details" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

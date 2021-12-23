@@ -4,8 +4,10 @@ import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickBack
 import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickOn
 import com.adevinta.android.barista.interaction.BaristaListInteractions.scrollListToPosition
+import com.adevinta.android.barista.interaction.BaristaSleepInteractions.sleep
 import com.karumi.shot.ActivityScenarioUtils.waitForActivity
 import com.karumi.shot.ScreenshotTest
 import org.junit.After
@@ -17,6 +19,7 @@ import org.koin.core.context.unloadKoinModules
 import org.koin.test.KoinTest
 import pl.lgawin.demo.spacex.mock.getAllLaunchpadsMock
 import pl.lgawin.demo.spacex.ui.MainActivity
+import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -42,5 +45,8 @@ class SmokeTest : ScreenshotTest, KoinTest {
         assertDisplayed("Launchpad 40")
         compareScreenshot(activity, name = "launchpad_list_scrolled")
         clickOn("Launchpad 39")
+        sleep(2, TimeUnit.SECONDS) // TODO check details fragment
+        clickBack()
+        sleep(2, TimeUnit.SECONDS ) // TODO check if back on the list
     }
 }

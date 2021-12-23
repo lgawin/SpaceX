@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import pl.lgawin.demo.spacex.R
 import pl.lgawin.demo.spacex.databinding.FragmentLaunchpadListBinding
 
 class LaunchpadListFragment : Fragment() {
@@ -16,7 +18,7 @@ class LaunchpadListFragment : Fragment() {
 
     private val viewModel by viewModel<LaunchpadListViewModel>()
     private val adapter = LaunchpadListAdapter {
-        Toast.makeText(requireContext(), "Show details: $it", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_launchpadListFragment_to_launchpadDetailsFragment)
     }
 
     override fun onCreateView(
