@@ -33,6 +33,9 @@ class LaunchpadDetailsFragment : Fragment(R.layout.fragment_launchpad_details) {
         viewModel.name.observe(viewLifecycleOwner) {
             binding.name.text = it
         }
+        viewModel.description.observe(viewLifecycleOwner) {
+            binding.details.text = it
+        }
     }
 
     override fun onDestroyView() {

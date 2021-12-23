@@ -56,11 +56,7 @@ class SpacexApiTest : KoinTest {
     fun `asks for specific launchpad details`() {
         server.enqueue(MockResponse().apply {
             setResponseCode(200)
-            setBody("""{
-                "id": 1, 
-                "site_id": "some-site-id", 
-                "site_name_long": "Launchpad name"
-            }""".trimIndent())
+            setBody(launchpadDetailsResponse)
         })
 
         runBlocking { service.getLaunchpad("some-site-id") }
@@ -75,22 +71,39 @@ class SpacexApiTest : KoinTest {
     fun `retrieves launchpad details`() {
         server.enqueue(MockResponse().apply {
             setResponseCode(200)
-            setBody("""{
-                "id": 1, 
-                "site_id": "some-site-id", 
-                "site_name_long": "Launchpad name"
-            }""".trimIndent())
+            setBody(launchpadDetailsResponse)
         })
 
         val launchpad = runBlocking { service.getLaunchpad("some-site-id") }
 
-        assertThat(launchpad).isEqualTo(Launchpad(
-            1,
-            "some-site-id",
-            "Launchpad name"
-        ))
+        assertThat(launchpad).isEqualTo(
+            Launchpad(
+                1,
+                "some-site-id",
+                "Launchpad name",
+                LaunchpadLocation("some location", "some region", 1.2345, -9.8765),
+                "Sample details",
+                "active",
+            )
+        )
     }
 }
+
+private val launchpadDetailsResponse = """
+    {
+        "id": 1, 
+        "site_id": "some-site-id", 
+        "site_name_long": "Launchpad name",
+        "location": {
+          "name": "some location",
+          "region": "some region",
+          "latitude": 1.2345,
+          "longitude": -9.8765
+        },
+        "status": "active",
+        "details": "Sample details"
+    }
+    """.trimIndent()
 
 private val launchpadsResponse = """
     [

@@ -19,6 +19,7 @@ import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
 import org.koin.test.KoinTest
 import pl.lgawin.demo.spacex.mock.getAllLaunchpadsMock
+import pl.lgawin.demo.spacex.mock.getLaunchpadDetailsMock
 import pl.lgawin.demo.spacex.ui.MainActivity
 import java.util.concurrent.TimeUnit
 
@@ -26,18 +27,20 @@ import java.util.concurrent.TimeUnit
 @LargeTest
 class SmokeTest : ScreenshotTest, KoinTest {
 
+    private val modules = getAllLaunchpadsMock + getLaunchpadDetailsMock
+
     @Before
     fun before() {
-        loadKoinModules(getAllLaunchpadsMock)
+        loadKoinModules(modules)
     }
 
     @After
     fun after() {
-        unloadKoinModules(getAllLaunchpadsMock)
+        unloadKoinModules(modules)
     }
 
     @Test
-    fun launchAndShowListOfLaunchpads() {
+    fun happyPath() {
         val activity = launchActivity<MainActivity>().waitForActivity()
         assertDisplayed("SpaceX")
         assertDisplayed("Launchpad 1")
@@ -46,11 +49,13 @@ class SmokeTest : ScreenshotTest, KoinTest {
         assertDisplayed("Launchpad 40")
         compareScreenshot(activity, name = "launchpad_list_scrolled")
         clickListItem(R.id.launchpad_list, 35)
-        assertDisplayed("launchpad 36 details")
+        assertDisplayed("name: 36")
+        assertDisplayed("description: Launchpad 36 description")
         compareScreenshot(activity, name = "launchpad_details")
         clickBack()
         clickOn("Launchpad 39")
-        assertDisplayed("launchpad 39 details")
+        assertDisplayed("name: 39")
+        assertDisplayed("description: Launchpad 39 description")
         clickBack()
         sleep(2, TimeUnit.SECONDS) // TODO check if back on the list
     }

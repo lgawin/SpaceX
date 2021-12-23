@@ -4,6 +4,8 @@ import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickBack
+import com.adevinta.android.barista.interaction.BaristaClickInteractions.clickOn
 import com.adevinta.android.barista.interaction.BaristaSleepInteractions.sleep
 import com.karumi.shot.ActivityScenarioUtils.waitForActivity
 import com.karumi.shot.ScreenshotTest
@@ -31,11 +33,15 @@ class EndToEndTest : ScreenshotTest, KoinTest {
     }
 
     @Test
-    fun launchAndShowListOfLaunchpads() {
+    fun smoke() {
         val activity = launchActivity<MainActivity>().waitForActivity()
         assertDisplayed("SpaceX")
-        sleep(2, TimeUnit.SECONDS) // FIXME - can be flacky...
+        sleep(2, TimeUnit.SECONDS) // FIXME - can be flaky...
         assertDisplayed("SpaceX South Texas Launch Site")
-        compareScreenshot(activity)
+        compareScreenshot(activity, name = "list")
+        clickOn("SpaceX South Texas Launch Site")
+        sleep(2, TimeUnit.SECONDS) // FIXME - can be flaky...
+        compareScreenshot(activity, name = "details")
+        clickBack()
     }
 }
