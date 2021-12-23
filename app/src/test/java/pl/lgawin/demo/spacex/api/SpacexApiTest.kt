@@ -1,4 +1,4 @@
-package pl.lgawin.demo.spacex
+package pl.lgawin.demo.spacex.api
 
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking

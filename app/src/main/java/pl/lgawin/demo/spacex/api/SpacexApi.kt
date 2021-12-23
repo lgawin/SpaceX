@@ -1,6 +1,5 @@
-package pl.lgawin.demo.spacex
+package pl.lgawin.demo.spacex.api
 
-import com.squareup.moshi.Json
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -13,7 +12,3 @@ interface SpacexApi {
     suspend fun getLaunchpad(@Path("site_id") siteId: String): Launchpad
 }
 
-data class Launchpad(
-    val id: Int,
-    @Json(name = "site_id") val siteId: String,
-)

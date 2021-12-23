@@ -5,7 +5,7 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.Test
-import pl.lgawin.demo.spacex.SpacexApi
+import pl.lgawin.demo.spacex.api.SpacexApi
 import retrofit2.Retrofit
 
 internal class SpacexApiIntegrationTest {
