@@ -54,10 +54,11 @@ class LaunchpadListFragmentTest : ScreenshotTest, KoinTest {
     @Test
     fun navigateToDetails() {
         val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
-        launchFragmentInContainer<LaunchpadListFragment>().onFragment {
-            navController.setGraph(R.navigation.nav_graph)
-            Navigation.setViewNavController(it.requireView(), navController)
-        }
+        launchFragmentInContainer<LaunchpadListFragment>(themeResId = R.style.Theme_SpaceX)
+            .onFragment {
+                navController.setGraph(R.navigation.nav_graph)
+                Navigation.setViewNavController(it.requireView(), navController)
+            }
         clickListItem(R.id.launchpad_list, 0)
         assertThat(navController.currentDestination?.id).isEqualTo(R.id.launchpad_details)
     }
