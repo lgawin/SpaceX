@@ -17,7 +17,7 @@ class LaunchpadListFragment : Fragment() {
 
     private val viewModel by viewModel<LaunchpadListViewModel>()
     private val adapter = LaunchpadListAdapter {
-        LaunchpadListFragmentDirections.actionLaunchpadListToLaunchpadDetails(it.id).navigateTo()
+        LaunchpadListFragmentDirections.actionLaunchpadListToLaunchpadDetails(it.id, it.name).navigateTo()
     }
 
     override fun onCreateView(

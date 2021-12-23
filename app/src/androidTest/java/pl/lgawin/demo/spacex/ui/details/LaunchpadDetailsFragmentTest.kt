@@ -56,9 +56,9 @@ class LaunchpadDetailsFragmentTest : ScreenshotTest, KoinTest {
         )
         val fragment = launchFragmentInContainer<LaunchpadDetailsFragment>(
             themeResId = R.style.Theme_SpaceX,
-            fragmentArgs = LaunchpadListFragmentDirections.actionLaunchpadListToLaunchpadDetails("some-id").arguments
+            fragmentArgs = LaunchpadListFragmentDirections.actionLaunchpadListToLaunchpadDetails("some-id", "Launchpad name").arguments
         ).waitForFragment()
-        assertDisplayed("name: some-id")
+        assertDisplayed("Launchpad name")
         compareScreenshot(fragment)
         // TODO check that view is loading data
         detailsFlow.tryEmit(launchpadDetails)

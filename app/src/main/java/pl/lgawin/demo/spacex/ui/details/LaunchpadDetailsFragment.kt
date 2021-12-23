@@ -17,7 +17,7 @@ class LaunchpadDetailsFragment : Fragment(R.layout.fragment_launchpad_details) {
     private val binding get() = _binding!!
 
     private val navArgs by navArgs<LaunchpadDetailsFragmentArgs>()
-    private val viewModel by viewModel<LaunchpadDetailsViewModel> { parametersOf(navArgs.id) }
+    private val viewModel by viewModel<LaunchpadDetailsViewModel> { parametersOf(navArgs.id, navArgs.name) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

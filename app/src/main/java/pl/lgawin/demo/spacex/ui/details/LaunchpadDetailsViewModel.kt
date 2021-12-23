@@ -8,11 +8,12 @@ import pl.lgawin.demo.spacex.domain.LaunchpadLocationModel
 
 class LaunchpadDetailsViewModel(
     private val launchpadId: String,
+    private val launchpadName: String,
     private val getLaunchpadDetailsUseCase: GetLaunchpadDetailsUseCase,
 ) : ViewModel() {
 
     val details = liveData {
-        emit(LaunchpadDetailsUiModel("name: $launchpadId"))
+        emit(LaunchpadDetailsUiModel(launchpadName))
         val details = getLaunchpadDetailsUseCase(launchpadId)
         emit(details.mapToUiModel())
     }

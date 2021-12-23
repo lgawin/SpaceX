@@ -26,5 +26,11 @@ class Application : Application() {
 
 val appModule = module {
     viewModel { LaunchpadListViewModel(get()) }
-    viewModel { params -> LaunchpadDetailsViewModel(launchpadId = params.get(), get()) }
+    viewModel { (launchpadId: String, launchpadName: String) ->
+        LaunchpadDetailsViewModel(
+            launchpadId,
+            launchpadName,
+            get(),
+        )
+    }
 }
