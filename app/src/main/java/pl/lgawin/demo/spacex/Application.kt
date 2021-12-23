@@ -8,6 +8,7 @@ import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.logger.Level
 import org.koin.dsl.module
 import pl.lgawin.demo.spacex.api.apiModule
+import pl.lgawin.demo.spacex.ui.details.LaunchpadDetailsViewModel
 import pl.lgawin.demo.spacex.ui.list.LaunchpadListViewModel
 
 class Application : Application() {
@@ -25,4 +26,5 @@ class Application : Application() {
 
 val appModule = module {
     viewModel { LaunchpadListViewModel(get()) }
+    viewModel { LaunchpadDetailsViewModel() }
 }
