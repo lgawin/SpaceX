@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.lgawin.demo.spacex.databinding.FragmentLaunchpadListBinding
 
 class LaunchpadListFragment : Fragment() {
@@ -16,13 +17,13 @@ class LaunchpadListFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel: LaunchpadListViewModel by viewModels()
-    private val adapter = LaunchpadListAdapter()
+    private val viewModel by viewModel<LaunchpadListViewModel>()
+    private val adapter by inject<LaunchpadListAdapter>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentLaunchpadListBinding.inflate(inflater, container, false)
         return binding.root

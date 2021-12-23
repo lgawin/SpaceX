@@ -10,15 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import pl.lgawin.demo.spacex.domain.LaunchpadModel
 
 class LaunchpadListAdapter :
-    ListAdapter<LaunchpadModel, LaunchpadViewHolder>(LaunchpadDiffCallback()) {
+    ListAdapter<LaunchpadModel, SimpleLaunchpadViewHolder>(LaunchpadDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchpadViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val itemView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
-        return LaunchpadViewHolder(itemView)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleLaunchpadViewHolder =
+        SimpleLaunchpadViewHolder.inflateIn(parent)
 
-    override fun onBindViewHolder(holder: LaunchpadViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SimpleLaunchpadViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 }
@@ -31,11 +28,19 @@ class LaunchpadDiffCallback : DiffUtil.ItemCallback<LaunchpadModel>() {
         oldItem == newItem
 }
 
-class LaunchpadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class SimpleLaunchpadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val name = itemView.findViewById<TextView>(android.R.id.text1)
 
     fun bind(item: LaunchpadModel) {
         name.text = item.name
+    }
+
+    companion object {
+
+        fun inflateIn(parent: ViewGroup) =
+            LayoutInflater.from(parent.context)
+                .inflate(android.R.layout.simple_list_item_1, parent, false)
+                .let { SimpleLaunchpadViewHolder(it) }
     }
 }
