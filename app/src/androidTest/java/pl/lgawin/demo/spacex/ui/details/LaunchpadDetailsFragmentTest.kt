@@ -75,8 +75,8 @@ class LaunchpadDetailsFragmentTest : ScreenshotTest, KoinTest {
         assertDisplayed("status:")
         assertDisplayed("under construction")
         assertDisplayed("location:")
-//        assertDisplayed("""Cape Canaveral/Florida
-//            |28°33'42.7"N 80°34'38.5"W""".trimMargin())
+        assertDisplayed("""Cape Canaveral/Florida
+            |28°33'42.7"N 80°34'38.5"W""".trimMargin())
         compareScreenshot(fragment, name = "data_loaded")
     }
 
@@ -96,8 +96,8 @@ class LaunchpadDetailsFragmentTest : ScreenshotTest, KoinTest {
         detailsFlow.tryEmit(launchpadDetails)
         assertDisplayed(LOREM_IPSUM_SHORT)
         assertDisplayed("retired")
-//        assertDisplayed("""Cape Canaveral/Florida
-//            |28°33'42.7"N 80°34'38.5"W""".trimMargin())
+        assertDisplayed("""Cape Canaveral/Florida
+            |28°33'42.7"N 80°34'38.5"W""".trimMargin())
         compareScreenshot(fragment, name = "extremely_long")
     }
 }

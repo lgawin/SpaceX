@@ -41,7 +41,9 @@ class EndToEndTest : ScreenshotTest, KoinTest {
         compareScreenshot(activity, name = "list")
         clickOn("SpaceX South Texas Launch Site")
         assertDisplayed("under construction")
-//        assertDisplayed("""25°59'50.2"N 97°09'21.9"W - Boca Chica Village/Texas""")
+        assertDisplayed("""Boca Chica Village/Texas
+            |25°59'50.2"N 97°09'21.9"W
+        """.trimMargin())
         sleep(2, TimeUnit.SECONDS) // FIXME - can be flaky...
         compareScreenshot(activity, name = "details")
         clickBack()

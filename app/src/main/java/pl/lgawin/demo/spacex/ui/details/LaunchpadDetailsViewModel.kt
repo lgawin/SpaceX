@@ -10,6 +10,7 @@ class LaunchpadDetailsViewModel(
     private val launchpadId: String,
     private val launchpadName: String,
     private val getLaunchpadDetailsUseCase: GetLaunchpadDetailsUseCase,
+    private val coordinatesConverter: CoordinatesConverter,
 ) : ViewModel() {
 
     val details = liveData {
@@ -20,7 +21,7 @@ class LaunchpadDetailsViewModel(
 
     private fun formatLocation(location: LaunchpadLocationModel) =
         """${location.description}
-            |0°N 0°E""".trimMargin()
+            |${coordinatesConverter.convert(location.latitude, location.longitude)}""".trimMargin()
 
     private fun LaunchpadDetailsModel.mapToUiModel() =
         LaunchpadDetailsUiModel(name, description, status, formatLocation(location))

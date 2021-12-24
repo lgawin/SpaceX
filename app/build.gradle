@@ -50,7 +50,8 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
+    def kotlin_version = "1.5.0"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_version")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
@@ -69,6 +70,9 @@ dependencies {
     testImplementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     testImplementation("io.insert-koin:koin-test:$koin_version")
     testImplementation("io.insert-koin:koin-test-junit4:$koin_version")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlin_version")
+    testImplementation("io.mockk:mockk:1.10.0")
 
     androidTestImplementation("androidx.test:core-ktx:1.4.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
@@ -82,4 +86,5 @@ dependencies {
         because("issue workaround https://github.com/android/android-test/issues/861#issuecomment-952431166 when using Truth")
     }
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+    androidTestImplementation("pl.pragmatists:JUnitParams:1.1.1")
 }

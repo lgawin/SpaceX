@@ -6,8 +6,10 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.logger.Level
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import pl.lgawin.demo.spacex.api.apiModule
+import pl.lgawin.demo.spacex.ui.details.CoordinatesConverter
 import pl.lgawin.demo.spacex.ui.details.LaunchpadDetailsViewModel
 import pl.lgawin.demo.spacex.ui.list.LaunchpadListViewModel
 
@@ -26,10 +28,12 @@ class Application : Application() {
 
 val appModule = module {
     viewModel { LaunchpadListViewModel(get()) }
+    factory { AndroidLocationCoordinatesConverter() } bind CoordinatesConverter::class
     viewModel { (launchpadId: String, launchpadName: String) ->
         LaunchpadDetailsViewModel(
             launchpadId,
             launchpadName,
+            get(),
             get(),
         )
     }
