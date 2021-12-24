@@ -3,6 +3,8 @@ package pl.lgawin.demo.spacex.ui.details
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -31,10 +33,14 @@ class LaunchpadDetailsFragment : Fragment(R.layout.fragment_launchpad_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.details.observe(viewLifecycleOwner) {
-            binding.name.text = it.name
-            binding.description.text = it.description
-            binding.status.text = it.status
-            binding.location.text = it.location
+            with(binding) {
+                name.text = it.name
+                description.text = it.description
+                lblStatus.visible = it.status != null
+                status.text = it.status
+                lblLocation.visible = it.status != null
+                location.text = it.location
+            }
         }
     }
 
@@ -43,3 +49,9 @@ class LaunchpadDetailsFragment : Fragment(R.layout.fragment_launchpad_details) {
         _binding = null
     }
 }
+
+private var View.visible: Boolean
+    get() = visibility == VISIBLE
+    set(value) {
+        visibility = if (value) VISIBLE else GONE
+    }

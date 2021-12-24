@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SpaceX</string>
+    <string name="status_label">status:</string>
+    <string name="location_label">location:</string>
 </resources>

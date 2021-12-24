@@ -19,7 +19,8 @@ class LaunchpadDetailsViewModel(
     }
 
     private fun formatLocation(location: LaunchpadLocationModel) =
-        """0°N 0°E - ${location.description}"""
+        """${location.description}
+            |0°N 0°E""".trimMargin()
 
     private fun LaunchpadDetailsModel.mapToUiModel() =
         LaunchpadDetailsUiModel(name, description, status, formatLocation(location))
